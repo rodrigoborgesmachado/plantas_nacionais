@@ -1,41 +1,22 @@
 <?php
-include 'bd.php';
-include 'IniciaJWT.php';
+$login = '';
 
-$postdata = file_get_contents("php://input");
-$request = json_decode($postdata);
+if (isset($_GET['login'])) {
+    $login = $_GET['login'];
+} 
 
-echo validaUsuario($request->login, $request->password);
+if (isset($_GET['pass'])) {
+    $pass = $_GET['pass'];
+} 
 
-function validaUsuario($login, $password)
-{
-	$pdo = Conectar();
-	if($pdo == null)
-	{
-		echo '<br>deu ruim';
-	}
-	else
-	{
-		$pdo->exec("SET NAMES 'utf8';");
-		$sql = 'SELECT ID, NOME FROM USUARIOS WHERE LOGIN = "' . $login .'" AND PASS = "' .$password . '"';
-		
-		$stm = $pdo->prepare($sql);
-		$stm->execute();
-		$pdo = null;	
-		$validacao = json_encode($stm->fetchAll(PDO::FETCH_ASSOC));
-		$r['Chave'] = '';
+$url = "http://teste.sunsalesystem.com.br/api/plantasNacionais/login?login=" . $login . "&senha=" .$pass ;
 
-		if(json_decode($validacao)[0]->NOME != ''){
-			$r['Chave'] = IniciaJWT();
-			$r['Usuario'] = json_decode($validacao)[0]->ID;
-			$r['Result'] = 'True';
-		}
-		else{
-			$r['Result'] = 'False';
-		}
+$curl = curl_init($url);
+curl_setopt($curl, CURLOPT_URL, $url);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
-		return json_encode($r);
-	}
-}
+$resp = curl_exec($curl);
+curl_close($curl);
+echo $resp;
 
 ?>

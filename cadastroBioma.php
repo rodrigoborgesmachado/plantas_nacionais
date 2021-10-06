@@ -8,7 +8,7 @@
         include 'modal.php';
         include 'navegacao.php';
 
-        if(isset($_COOKIE['CHAVE']) && isset($_COOKIE['LOGADO']) && $_COOKIE['LOGADO'] == '1')
+        if(isset($_COOKIE['LOGADO']) && $_COOKIE['LOGADO'] == '1')
         {
         ?>
         <div class="jumbotron">	
@@ -67,7 +67,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <button style="text-align: right;" class="buttonStartGame" id="incluir" onclick="incluirBioma('<?php echo $_COOKIE['USUARIO']?>', '<?php echo $_COOKIE['CHAVE']?>')">Incluir</button>
+                            <button style="text-align: right;" class="buttonStartGame" id="incluir" onclick="incluirBioma('<?php echo $_COOKIE['USUARIO']?>')">Incluir</button>
                         </div>
                     </div>
 			    </div>
@@ -102,7 +102,7 @@
 </html>
 
 <script>
-        function incluirBioma(idusuario, chave){
+        function incluirBioma(idusuario){
             document.getElementById('incluir').disabled = true;
             
             var nome = document.getElementById('nomeBioma').value;
@@ -110,6 +110,6 @@
             var caracteristicas = document.getElementById('caracteristicas').value;
             var fitofisionomia = document.getElementById('fitofisionomia').value;
             var observacao = document.getElementById('observacao').value;
-            var retorno = InsereBioma(nome, distribuicao, caracteristicas, fitofisionomia, observacao, idusuario, chave);
+            var retorno = InsereBioma(nome, distribuicao, caracteristicas, fitofisionomia, observacao, 1);
         }
 </script>

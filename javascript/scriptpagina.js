@@ -79,76 +79,48 @@ function BuscaPlantas(bioma, codigoPlanta, nomePlanta){
     }
 }
 
-function InserePlanta(bioma, nomeCientifico, nomePopular, habitate, folha, flor, fruto, familia, tribo, usuario, Chave){
+function InserePlanta(bioma, nomeCientifico, nomePopular, habitate, folha, flor, fruto, familia, tribo, usuario){
     var xhr = new XMLHttpRequest();
 
-    var quantidadeVotos = 1;
-    var dados = JSON.stringify({bioma, nomeCientifico, nomePopular, habitate, folha, flor, fruto, familia, tribo, usuario, Chave});
-    xhr.open("POST", "http://plantasnacionais.sunsalesystem.com.br/PHP/InserePlanta.php");
+    var dados = JSON.stringify({bioma, nomeCientifico, nomePopular, habitate, folha, flor, fruto, familia, tribo, usuario});
+    xhr.open("POST", "http://plantasnacionais.sunsalesystem.com.br/PHP/InserePlanta.php", false);
     xhr.setRequestHeader('Content-Type', 'application/json');
-
-    xhr.addEventListener("load", function() {
-        var erroAjax = document.querySelector("#erro-ajax");
-        if (xhr.status == 200) {
-            //sucesso!
-        } else {
-            alert('Não foi possível inserir a planta.');
-            //erro!
-        }
-    }
-    );
-
     xhr.send(dados);
-    
-    if(xhr.status === 200){
+
+    if (xhr.status == 200) {
         return JSON.parse(xhr.responseText);
-    }
-    else{
+    } else {
+        alert('Não foi possível inserir a planta.');
+        //erro!
         return null;
     }
 }
 
-function BuscaBiomas(nomeBioma){
+function BuscaBiomas(){
     var xhr = new XMLHttpRequest();
+    xhr.open("GET", "http://plantasnacionais.sunsalesystem.com.br/PHP/GetBiomas.php", false);
+    xhr.send(null);
 
-    var quantidadeVotos = 1;
-    var dados = JSON.stringify({nomeBioma});
-    xhr.open("POST", "http://plantasnacionais.sunsalesystem.com.br/PHP/GetBiomas.php");
-    xhr.setRequestHeader('Content-Type', 'application/json');
-
-    xhr.addEventListener("load", function() {
-        var erroAjax = document.querySelector("#erro-ajax");
-        if (xhr.status == 200) {
-            //sucesso!
-        } else {
-            alert('Não foi possível buscar os biomas.');
-            //erro!
-        }
-    }
-    );
-
-    xhr.send(dados);
-    
     if(xhr.status === 200){
         return JSON.parse(xhr.responseText);
     }
     else{
+        alert('Não foi possível buscar os biomas.');
         return null;
     }
 }
 
-function InsereBioma(nome, distribuicao, caracteristicas, fitofisionomia, observacao, usuario, Chave){
+function InsereBioma(nome, distribuicao, caracteristicas, fitofisionomia, observacao, usuario){
     var xhr = new XMLHttpRequest();
 
-    var dados = JSON.stringify({nome, distribuicao, caracteristicas, fitofisionomia, observacao, usuario, Chave});
+    var dados = JSON.stringify({nome, distribuicao, caracteristicas, fitofisionomia, observacao, usuario});
     xhr.open("POST", "http://plantasnacionais.sunsalesystem.com.br/PHP/InsereBioma.php");
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     xhr.addEventListener("load", function() {
         user = JSON.parse(xhr.responseText);
-        if (user.Result == "True") {
+        if (user.Sucesso == true) {
             alert(nome + " incluído com sucesso!");
-            document.cookie = 'CHAVE=' + user.Chave;
             document.location.reload();
         } else {
             alert('Não foi possível inserir o bioma.');
@@ -161,19 +133,16 @@ function InsereBioma(nome, distribuicao, caracteristicas, fitofisionomia, observ
 }
 
 function RealizaLogin(login, password){
-    var xhr = new XMLHttpRequest();
+    var url = "http://plantasnacionais.sunsalesystem.com.br/PHP/ValidaUsuario.php?login=" + login + "&pass=" + password;
 
-    var quantidadeVotos = 1;
-    var dados = JSON.stringify({login, password});
-    xhr.open("POST", "http://plantasnacionais.sunsalesystem.com.br/PHP/ValidaUsuario.php");
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url);
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     xhr.addEventListener("load", function() {
         user = JSON.parse(xhr.responseText);
-        if (user.Result == 'True') {
-            chave = JSON.parse(user.Chave);
-            document.cookie = 'CHAVE=' + chave.CHAVE;
-            document.cookie = 'USUARIO=' + user.Usuario;
+        if (user.Sucesso == true) {
+            document.cookie = 'USUARIO=' + user.Nome;
             document.cookie = 'LOGADO=1';
 
             document.location.reload();
@@ -184,12 +153,11 @@ function RealizaLogin(login, password){
     }
     );
 
-    xhr.send(dados);
+    xhr.send();
 }
 
 function RealizaDeslog(){
     document.cookie = 'LOGADO=0';
-    document.cookie = 'CHAVE=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
     document.location.reload();
 }
 

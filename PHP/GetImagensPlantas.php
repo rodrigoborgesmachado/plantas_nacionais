@@ -1,28 +1,18 @@
 <?php
-include 'bd.php';
-$postdata = file_get_contents("php://input");
-$request = json_decode($postdata);
+$idPlanta = '';
 
-echo getImagensPlantas($request->idPlanta);
+if (isset($_GET['idPlanta'])) {
+    $idPlanta = $_GET['idPlanta'];
+} 
 
-function getImagensPlantas($idplanta)
-{
-	$pdo = Conectar();
-	if($pdo == null)
-	{
-		echo 'Não foi possível conectar';
-	}
-	else
-	{
-		$pdo->exec("SET NAMES 'utf8';");
-		$sql = 'SELECT IDPLANTA, CAMINHO FROM IMAGENSPLANTA';
-		$sql .= ' WHERE IDPLANTA = ' . $idplanta . '';
+$url = "http://teste.sunsalesystem.com.br/api/plantasNacionais/plantas/getImagens?idPlanta=" . $idPlanta;
 
-		$stm = $pdo->prepare($sql);
-		$stm->execute();
-		$pdo = null;	
-		return utf8_encode(json_encode($stm->fetchAll(PDO::FETCH_ASSOC)));
-	}
-}
+$curl = curl_init($url);
+curl_setopt($curl, CURLOPT_URL, $url);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+$resp = curl_exec($curl);
+curl_close($curl);
+echo $resp;
 
 ?>

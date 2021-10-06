@@ -57,7 +57,6 @@ PreencheBiomas();
         xhr.addEventListener("load", function() {
             var erroAjax = document.querySelector("#erro-ajax");
             if (xhr.status == 200) {
-                //TODO colocar tela de carregamento
                 PreencheBiomasTexto(JSON.parse(xhr.responseText));
             } else {
                 alert('Não foi possível buscar os biomas.');
@@ -75,25 +74,25 @@ PreencheBiomas();
 
         texto += '    <div class="row">';
 
-        for(i = 0; i < listaBiomas.length; i++){
+        for(i = 0; i < listaBiomas.lista.length; i++){
             texto += '      <div class="col-sm-8">';
-            texto += '          <input class="form-control" id="codigoBioma_' + i + '" type="hidden" value="listaBiomas[i].ID">';
+            texto += '          <input class="form-control" id="codigoBioma_' + i + '" type="hidden" value="' + listaBiomas.lista[i].Id + '">';
             texto += '          <br>';
-            texto += '          <h2 style="text-align: center;"> ' + listaBiomas[i].NOME + ' </h2>';
+            texto += '          <h2 style="text-align: center;"> ' + listaBiomas.lista[i].Nome + ' </h2>';
             texto += '          <br>';
             texto += '          <h4>';
-            texto += '          Distribuição: ' + listaBiomas[i].DISTRIBUICAO;
+            texto += '          Distribuição: ' + listaBiomas.lista[i].Distribuicao;
             texto += '          <br>';
-            texto += '          Características: ' + listaBiomas[i].CARACTERISTICAS;
+            texto += '          Características: ' + listaBiomas.lista[i].Caracteristicas;
             texto += '          <br>';
-            texto += '          Fitofisionomia: ' + listaBiomas[i].FITOFISIONOMIA;
+            texto += '          Fitofisionomia: ' + listaBiomas.lista[i].Fitofisionomia;
             texto += '          <br>';
-            texto += '          Observação: ' + listaBiomas[i].OBSERVACAO;
+            texto += '          Observação: ' + listaBiomas.lista[i].Observacao;
             texto += '          </h4>';
-            texto += '    ' + (getCookie('LOGADO') == '1' ?
+            /*texto += '    ' + (getCookie('LOGADO') == '1' ?
                            `<h4 style="text-align: right;">
                                 <button class="buttonInicio" onclick="AbrirModalCadastroImagem();">Adicionar Imagens</button>
-                            </h4>` : '');
+                            </h4>` : '');*/
             texto += '    </div>';
         }
         texto += '    </div>';

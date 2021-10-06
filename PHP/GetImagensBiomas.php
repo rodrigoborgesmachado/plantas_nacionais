@@ -1,28 +1,18 @@
 <?php
-include 'bd.php';
-$postdata = file_get_contents("php://input");
-$request = json_decode($postdata);
+$idBioma = '';
 
-echo getImagensBiomas($request->idBioma);
+if (isset($_GET['idBioma'])) {
+    $idBioma = $_GET['idBioma'];
+} 
 
-function getImagensBiomas($idBioma)
-{
-	$pdo = Conectar();
-	if($pdo == null)
-	{
-		echo 'Não foi possível conectar';
-	}
-	else
-	{
-		$pdo->exec("SET NAMES 'utf8';");
-		$sql = 'SELECT IDBIOMA, CAMINHO FROM IMAGENSBIOMA';
-		$sql .= ' WHERE IDBIOMA = ' . $idBioma . '';
+$url = "http://teste.sunsalesystem.com.br/api/plantasNacionais/biomas/getImagens?idBioma=" . $idBioma;
 
-		$stm = $pdo->prepare($sql);
-		$stm->execute();
-		$pdo = null;	
-		return utf8_encode(json_encode($stm->fetchAll(PDO::FETCH_ASSOC)));
-	}
-}
+$curl = curl_init($url);
+curl_setopt($curl, CURLOPT_URL, $url);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+$resp = curl_exec($curl);
+curl_close($curl);
+echo $resp;
 
 ?>

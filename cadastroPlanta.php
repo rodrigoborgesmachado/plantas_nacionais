@@ -1,7 +1,3 @@
-<?php
-setlocale(LC_ALL, NULL);
-setlocale(LC_ALL, 'pt_BR.utf-8');
-?>
 <!DOCTYPE html>
 <html lang="pt-br">
     <?php
@@ -12,7 +8,7 @@ setlocale(LC_ALL, 'pt_BR.utf-8');
         include 'modal.php';
         include 'navegacao.php';
 
-        if(isset($_COOKIE['CHAVE']) && isset($_COOKIE['LOGADO'] && $_COOKIE['LOGADO'] == '1'))
+        if(isset($_COOKIE['LOGADO']) && $_COOKIE['LOGADO'] == '1')
         {
         ?>
         <div class="jumbotron">	
@@ -47,12 +43,14 @@ setlocale(LC_ALL, 'pt_BR.utf-8');
                     </div>
                     <div class="row">
                         <div class="col-sm-8">
-                            Biomas:<br>
-                            <div class="row">
-                                <div class="col-sm-12" id = 'biomas'>
+                            <h4>
+                                Biomas:<br>
+                                <div class="row">
+                                    <div class="col-sm-12" id = 'biomas'>
                                         
+                                    </div>
                                 </div>
-                            </div>
+                            </h4>
                         </div>
                     </div>
                     <div class="row">
@@ -105,7 +103,7 @@ setlocale(LC_ALL, 'pt_BR.utf-8');
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <button style="text-align: right;" class="buttonIncluir" onclick="incluirPlanta(<?php echo $_COOKIE['CHAVE']?>, <?php echo $_COOKIE['USUARIO']?>)">Incluir</button>
+                            <button style="text-align: right;" class="buttonStartGame" id="incluir" onclick="incluirPlanta();">Incluir</button>
                         </div>
                     </div>
 			    </div>
@@ -141,15 +139,8 @@ setlocale(LC_ALL, 'pt_BR.utf-8');
 
 <script>
 
-    <?php
-        include 'modal.php';
-        include 'navegacao.php';
-
-        if(isset($_COOKIE['CHAVE']) && isset($_COOKIE['LOGADO'] && $_COOKIE['LOGADO'] == '1'))
-        {
-        ?>
             PreencheBiomas();
-            function incluirPlanta(idusuario, chave){
+            function incluirPlanta(){
                 var bioma = document.getElementById('selectBiomas').value;
                 var nomeCientifico = document.getElementById('nomeCientifico').value;
                 var nomePopular = document.getElementById('nomePopular').value;
@@ -159,28 +150,24 @@ setlocale(LC_ALL, 'pt_BR.utf-8');
                 var fruto = document.getElementById('fruto').value;
                 var familia = document.getElementById('familia').value;
                 var tribo = document.getElementById('tribo').value;
-                var retorno = InserePlanta(bioma, nomeCientifico, nomePopular, habitate, folha, flor, fruto, familia, tribo, usuario, Chave);
+                var retorno = InserePlanta(bioma, nomeCientifico, nomePopular, habitate, folha, flor, fruto, familia, tribo, 1);
 
-                if(retorno.Result == 'True'){
-                    alerta("Incluído com sucesso!");
-                    $_COOKIE['CHAVE'] = retorno.Chave;
+                if(retorno.Sucesso == true){
+                    alert("Incluído com sucesso!");
                     document.location.reload();
                 }
             }
 
             function PreencheBiomas(){
-                var listaBiomas = BuscaBiomas();
+                var biomas = BuscaBiomas();
                 document.getElementById('biomas').innerHTML = '';
 
-                var texto = `<select class="form-select form-select-sm" aria-label="Default select" id='selectBiomas'>`;
-                for(i = 0; i < listaBiomas.length; i++){
-                    texto+=`<option value="`+ listaBiomas[i].ID + `">` + listaBiomas[i].NOME + `</option>`;
+                var texto = `<select class="col-sm-12 form-select form-select-lg mb-3" aria-label=".form-select-lg example" id='selectBiomas'>`;
+                for(i = 0; i < biomas.lista.length; i++){
+                    texto+=`<option value="`+ biomas.lista[i].Id + `"` + (i == 0 ? " selected " : "") + `>` + biomas.lista[i].Nome + `</option>`;
                 }
                 texto+='</select>';
 
                 document.getElementById('biomas').innerHTML += texto;
             }
-    <?php
-        }
-        ?>
 </script>

@@ -1,67 +1,39 @@
 <?php
-include 'bd.php';
-include 'ValidaJWT.php';
 
 $postdata = file_get_contents("php://input");
 $request = json_decode($postdata);
-$validacao = json_decode(RetornaValidacao($request->Chave));
 
-if($validacao->Result == '200'){
-	echo atualizaBioma($request->id,
-		$request->nome, 
-		$request->distribuicao,
-		$request->caracteristicas,
-		$request->fitofisionomia,
-		$request->observacao,
-		$validacao->Chave
-	);
-}
-else{
-	echo RetornaValidacao($request->Chave);
-}
+$url = "http://teste.sunsalesystem.com.br/api/plantasNacionais/biomas/inserir";
+$curl = curl_init($url);
 
+curl_setopt($curl, CURLOPT_URL, $url);
+curl_setopt($curl, CURLOPT_POST, true);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
-function atualizaBioma($id, $nome, $distribuicao, $caracteristicas, $fitofisionomia, $observacao, $chave)
+$headers = array(
+	"Content-Type: application/json",
+);
+
+curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+
+$data = <<<DATA
 {
-	$pdo = Conectar();
-	$result = 'True';
-
-	if($pdo == null)
-	{
-		$result = 'Não conectou no banco';
-	}
-	else
-	{
-		$sql = 'UPDATE BIOMAS SET NOME = ?, DISTRIBUICAO = ?, CARACTERISTICAS = ?, FITOFISIONOMIA = ?, OBSERVACAO = ? 
-			    WHERE ID = ?';
-		$stm = $pdo->prepare($sql);
-		$stm->bindValue(1, $nome);
-		$stm->bindValue(2, $distribuicao);
-		$stm->bindValue(3, $caracteristicas);
-		$stm->bindValue(4, $fitofisionomia);
-		$stm->bindValue(5, $observacao);
-		$stm->bindValue(6, $id);
-		
-		if($stm->execute() == false)
-		{
-			$result = 'False';
-		}
-		else{
-			$result = 'True';
-		}
-
-		$pdo = null;	
-	}
-	
-	$r['Result'] = $result;	
-	$r['nome'] = $nome;
-	$r['distribuicao'] = $distribuicao;
-	$r['caracteristicas'] = $caracteristicas;
-	$r['fitofisionomia'] = $fitofisionomia;
-	$r['observacao'] = $observacao;
-	$r['Chave'] = $chave;
-
-	return json_encode($r);
+	"Id": $request->id,
+	"Nome": "$request->nome",
+	"Distribuicao": "$request->distribuicao",
+	"Caracteristicas": "$request->caracteristicas",
+	"Fitofisionomia": "$request->fitofisionomia",
+	"Observacao" : "$request->observacao",
+	"Idusuario" : $request->usuario
 }
+DATA;
 
+curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+
+$resp = curl_exec($curl);
+echo $resp;
+
+curl_close($curl);
+/*	
+*/
 ?>
