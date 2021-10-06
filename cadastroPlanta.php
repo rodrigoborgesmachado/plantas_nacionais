@@ -65,7 +65,7 @@
                         <div class="col-sm-8">
                             <h4>
                                 Folha:<br>
-                                <input class="form-control" id="folha" name="folha" placeholder="Folha" type="text" maxlength="1000" required>
+                                <input class="form-control" id="folha" name="folha" placeholder="Folha" type="text" maxlength="8000" required>
                             </h4>
                         </div>
                     </div>
@@ -73,7 +73,7 @@
                         <div class="col-sm-8">
                             <h4>
                                 Flor:<br>
-                                <input class="form-control" id="flor" name="flor" placeholder="Flor" type="text" maxlength="1000" required>
+                                <input class="form-control" id="flor" name="flor" placeholder="Flor" type="text" maxlength="8000" required>
                             </h4>
                         </div>
                     </div>
@@ -81,7 +81,7 @@
                         <div class="col-sm-8">
                             <h4>
                                 Fruto:<br>
-                                <input class="form-control" id="fruto" name="fruto" placeholder="Fruto" type="text" maxlength="1000" required>
+                                <input class="form-control" id="fruto" name="fruto" placeholder="Fruto" type="text" maxlength="8000" required>
                             </h4>
                         </div>
                     </div>

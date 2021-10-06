@@ -45,7 +45,7 @@
                         <div class="col-sm-8">
                             <h4>
                                 Características:<br>
-                                <input class="form-control" id="caracteristicas" name="caracteristicas" placeholder="Características" type="text" maxlength="65535" required>
+                                <input class="form-control" id="caracteristicas" name="caracteristicas" placeholder="Características" type="text" maxlength="8000" required>
                             </h4>
                         </div>
                     </div>
@@ -53,7 +53,7 @@
                         <div class="col-sm-8">
                             <h4>
                                 Fitofisionomia:<br>
-                                <input class="form-control" id="fitofisionomia" name="fitofisionomia" placeholder="Fitofisionomia" type="text" maxlength="65535" required>
+                                <input class="form-control" id="fitofisionomia" name="fitofisionomia" placeholder="Fitofisionomia" type="text" maxlength="8000" required>
                             </h4>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
                         <div class="col-sm-8">
                             <h4>
                                 Observação:<br>
-                                <input class="form-control" id="observacao" name="observacao" placeholder="Observação" type="text" maxlength="65535" required>
+                                <input class="form-control" id="observacao" name="observacao" placeholder="Observação" type="text" maxlength="8000" required>
                             </h4>
                         </div>
                     </div>
