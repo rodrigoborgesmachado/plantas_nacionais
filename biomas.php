@@ -75,19 +75,24 @@ PreencheBiomas();
         texto += '    <div class="row">';
 
         for(i = 0; i < listaBiomas.lista.length; i++){
-            texto += '      <div class="col-sm-8">';
+            texto += '      <div class="col-sm-12">';
             texto += '          <input class="form-control" id="codigoBioma_' + i + '" type="hidden" value="' + listaBiomas.lista[i].Id + '">';
             texto += '          <br>';
             texto += '          <h2 style="text-align: center;"> ' + listaBiomas.lista[i].Nome + ' </h2>';
             texto += '          <br>';
             texto += '          <h4>';
-            texto += '          Distribuição: ' + listaBiomas.lista[i].Distribuicao;
+            texto += '          <b>Distribuição:</b> ' + listaBiomas.lista[i].Distribuicao;
             texto += '          <br>';
-            texto += '          Características: ' + listaBiomas.lista[i].Caracteristicas;
             texto += '          <br>';
-            texto += '          Fitofisionomia: ' + listaBiomas.lista[i].Fitofisionomia;
+            texto += '          <b>Características:</b> ' + listaBiomas.lista[i].Caracteristicas;
             texto += '          <br>';
-            texto += '          Observação: ' + listaBiomas.lista[i].Observacao;
+            texto += '          <br>';
+            texto += '          <b>Fitofisionomia:</b> ' + listaBiomas.lista[i].Fitofisionomia;
+            texto += '          <br>';
+            texto += '          <br>';
+            texto += '          <b>Observação:</b> ' + listaBiomas.lista[i].Observacao;
+            texto += '          <br>';
+            texto += '          <br>';
             texto += '          </h4>';
             /*texto += '    ' + (getCookie('LOGADO') == '1' ?
                            `<h4 style="text-align: right;">
