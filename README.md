@@ -1,9 +1,21 @@
-# Indicação de Filmes
+# Plantas Nacionais
 
-**Web site disponível em http://filmes.sunsalesystem.com.br/**
+Plantas Nacionais é um site dedicado a apresentar informações sobre as plantas nativas do Brasil, organizadas por região. Nosso objetivo é promover o conhecimento sobre a rica biodiversidade do país e facilitar o acesso a informações sobre flora brasileira.
 
-## Considerações Gerais
+## Visão Geral
 
-* Site desenvolvido em HTML, JavaScript, CSS e Bootstrap conectando em uma API feita em PHP
-* Ajudar a listar os filmes que ficavamos indicando um ao outro no trabalho, então aí está!
-* Não derrubem meu servidor, não tem segurança nenhuma!
+O site Plantas Nacionais oferece:
+
+- **Exploração por Região:** Descubra plantas específicas de diferentes regiões do Brasil, como Amazônia, Cerrado, Mata Atlântica, Caatinga, e mais.
+- **Informações Detalhadas:** Cada planta possui uma página dedicada com informações sobre suas características, habitat e usos.
+- **Pesquisa Intuitiva:** Ferramentas de busca para facilitar a localização de plantas por nome ou região.
+
+## Tecnologias Utilizadas
+
+- **Frontend:** React
+- **Backend:** Net8
+- **Hospedagem:** Azure
+
+## Acesso ao Site
+
+Você pode explorar o site através do seguinte link: [Plantas Nacionais](https://seu-site.com)
